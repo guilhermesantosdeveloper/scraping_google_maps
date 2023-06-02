@@ -1,12 +1,12 @@
 const { ipcRenderer } = require('electron');
 
 const path = require('path');
-const {lerArquivoJson,editarArquivoJson} = require('../src/jsonCrud')
+const {lerArquivoJson,editarArquivoJson,criarArquivoJson} = require('../src/jsonCrud')
 
 
 
 
-const caminho = path.resolve(__dirname,'..', 'config.json')
+const caminho = path.resolve('config.json')
 
 function salvaModelo(content) {
   const element = document.createElement("a");
@@ -31,12 +31,13 @@ const texto = document.getElementById('texto');
 const textoSalvar = document.getElementById('texto-salvar')
 
 window.onload=()=>{
+    criarArquivoJson(caminho)
     inputNegocio.value = arquivoJson.negocio;
     inputBairro.value = arquivoJson.bairro;
     inputCidade.value = arquivoJson.cidade;
     inputEstado.value = arquivoJson.estado;
   }
-  
+
 
 btnSalvar.addEventListener('click',(e)=>{
     const json = {
