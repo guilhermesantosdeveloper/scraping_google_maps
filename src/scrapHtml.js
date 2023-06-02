@@ -12,7 +12,7 @@ function delay(time) {
 }
 
 async function scrapHtml() {
-  const caminhoArquivo = path.resolve(__dirname,'..','config.json');
+  const caminhoArquivo = path.resolve('config.json');
 
   const json = lerArquivoJson(caminhoArquivo);
   //console.log(json);
