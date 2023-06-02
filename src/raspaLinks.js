@@ -8,11 +8,13 @@ async function raspaLinks() {
   const $ = await cheerio.load(html);
   const tagAhref = $('.hfpxzc');
   tagAhref.each((i, e) => {
-    link = $(e).attr('href');
+    let link = $(e).attr('href');
     links.push(link);
   })
+
   return links;
 }
+
 
 
 module.exports=raspaLinks;

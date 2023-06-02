@@ -1,7 +1,9 @@
 const puppeteer = require('puppeteer');
+const {lerArquivoJson} = require('./jsonCrud')
+const path = require('path');
 
-const busca = 'Restaurantes'
-const urlAlvo = `https://www.google.com.br/maps/search/${busca}`;
+
+
 
 function delay(time) {
   return new Promise(function (resolve) {
@@ -10,8 +12,20 @@ function delay(time) {
 }
 
 async function scrapHtml() {
+  const caminhoArquivo = path.resolve(__dirname,'..','config.json');
+
+  const json = lerArquivoJson(caminhoArquivo);
+  //console.log(json);
+
+  const busca = json.negocio;
+  const bairro = json.bairro;
+  const cidade = json.cidade;
+  const estado = json.estado
+
+  const urlAlvo = `https://www.google.com.br/maps/search/${busca}+perto+de+${bairro}+${cidade}+${estado}`;
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+
   await page.goto(urlAlvo);
   await page.waitForSelector('.hfpxzc');
   await page.focus('.hfpxzc');
@@ -22,7 +36,8 @@ async function scrapHtml() {
   }
   let html = await page.content();
   await browser.close();
+
   return html;
 }
 
-module.exports=scrapHtml;
+module.exports = scrapHtml;

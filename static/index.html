@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+
+    <title>Extrair dados Google Maps</title>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="row">
+
+            <div>
+                <form class="row gy-2 gx-3 align-items-center">
+                    <div class="col-12 text-center">
+                        <h1 class="display-4">Dados para fazer a pesquisa</h1>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label" for="negocio">Negócio</label>
+                        <input type="text" class="form-control" id="negocio" placeholder="Restaurantes">
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label" for="bairro">Bairro</label>
+                        <input type="text" class="form-control" id="bairro" placeholder="Savassi">
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label" for="cidade">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" placeholder="Belo Horizonte">
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label" for="estado">Estado (sigla)</label>
+                        <input type="text" class="form-control" id="estado" placeholder="MG">
+                    </div>
+
+
+
+                    <div class="col-12 text-center">
+                        <a type="#" class="btn btn-primary w-25" id="salvar">Salvar</a>
+                        <p class="text-success" id="texto-salvar"></p>
+                    </div>
+
+
+                    <div class="col-12 text-center mt-5">
+                        <h1 class="display-3">Fazer a pesquisa</h1>
+                    </div>
+                    <div class="col-12 text-center">
+                        <a type="#" class="btn btn-primary w-50" id="pesquisar">Pesquisar</a>
+                        <p id="texto" class="text-success"></p>
+                        <div class="d-block mt-2">
+                            <!-- spinner-->
+                            <div role="status" id="caixa-spinner" class="">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="../renderer.js"></script>
+</body>
+
+</html>

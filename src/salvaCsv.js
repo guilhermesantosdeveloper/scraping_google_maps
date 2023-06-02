@@ -1,7 +1,11 @@
 const fs = require('fs');
+const path = require('path');
+
+
 
 function salvaCsv(dados){
-  fs.appendFile('leads/leads.csv', dados, (err)=> {
+  const caminho = path.resolve(__dirname, '..','leads', 'leads.csv')
+  fs.appendFile(caminho, dados, (err)=> {
     if (err) throw err;
     console.log('Salvando');
   })

@@ -1,11 +1,13 @@
 const puppeteer = require('puppeteer');
-const salvaCsv = require('./salvaCsv');
+const raspaLinks = require('./raspaLinks');
 
 
-async function saveInfo(links) {
+async function saveInfo(mainWindow) {
+  const links = await raspaLinks();
   const browser = await puppeteer.launch();
+  let arr = [];
   for (let i = 0; i < links.length; i++) {
-    const dados = [];
+    const dados = {nome:'',endereco:'',telefone:''};
     const link = links[i];
     const page = await browser.newPage();
     await page.goto(link);
@@ -14,35 +16,42 @@ async function saveInfo(links) {
       const titulo = await page.evaluate(x => {
         return document.querySelector(x).innerText;
       }, '.fontHeadlineLarge');
-      dados.push(titulo);
+      dados.nome = titulo;
     } catch (error) {
-      const titulo = 'Não possui!';
-      dados.push(titulo)
+      //console.log(error);
+      const titulo = '';
+      dados.nome = titulo;
     }
     try {
       const endereco = await page.evaluate(x => {
-        return document.querySelector('button[data-item-id="address"]').children[0].children[1].innerText;
+        return document.querySelector('button[data-item-id="address"]').innerText;
       });
-      dados.push(endereco);
+      dados.endereco = endereco;
     } catch (error) {
-      const endereco = 'Não possui!';
-      dados.push(endereco)
+      //console.log(error);
+      const endereco = '';
+      dados.endereco = endereco;
     }
     try {
       const telefone = await page.evaluate(x => {
-        return document.querySelector('button[data-tooltip="Copiar número de telefone"]').children[0].children[1].innerText;
+        return document.querySelector('button[data-tooltip="Copiar número de telefone"]').innerText;
       });
-      dados.push(telefone);
+      dados.telefone = telefone;
     } catch (error) {
-      const telefone = 'Não possui!';
-      dados.push(telefone)
+      //console.log(error);
+      const telefone = '';
+      dados.telefone = telefone;
     }
-    let [titulo, endereco, telefone] = dados;
-    const csvString = `${titulo.replace(/,/g, '')};${endereco.replace(/,/g, '')};${telefone.replace(/,/g, '')}\n`
-    salvaCsv(csvString);
+    arr.push(dados);
+    mainWindow.send('restaurante', dados);
+    
     await page.close();
   }
   await browser.close()
+  console.log(arr);
+  return arr
 }
 
-module.exports=saveInfo;
+
+
+module.exports = saveInfo;
