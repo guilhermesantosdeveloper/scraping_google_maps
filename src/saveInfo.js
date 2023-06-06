@@ -48,7 +48,7 @@ async function saveInfo(mainWindow) {
     await page.close();
   }
   await browser.close()
-  console.log(arr);
+  //console.log(arr);
   return arr
 }
 

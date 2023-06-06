@@ -34,8 +34,15 @@ const criarArquivoJson = (caminhoArquivo) => {
       cidade: '',
       estado: ''
     }
-    const json = JSON.stringify(novoJson, null, 2);
-    fs.writeFileSync(caminhoArquivo, json);
+    const jsonAntigo = lerArquivoJson(caminhoArquivo);
+    if(jsonAntigo){
+      const json = JSON.stringify(jsonAntigo, null, 2);
+      fs.writeFileSync(caminhoArquivo, json);
+    }else{
+      const json = JSON.stringify(novoJson, null, 2);
+      fs.writeFileSync(caminhoArquivo, json);
+    }
+    
     //console.log('Arquivo JSON editado com sucesso!');
   } catch (erro) {
     //console.error('Erro ao editar o arquivo JSON:', erro);
@@ -46,7 +53,7 @@ const criarArquivoJson = (caminhoArquivo) => {
 //
 const path = require('path');
 
-const caminhoArquivo = path.resolve(__dirname, '..', 'config.txt')
+const caminhoArquivo = path.resolve(__dirname, '..', 'config.json')
 const novoJson = {
   negocio: 'Escolas',
   bairro: 'Nova Suiça',
@@ -59,7 +66,9 @@ const novoJson = {
 lerArquivoJson(caminhoArquivo)
 editarArquivoJson(caminhoArquivo, novoJson)
 */
-
+// const path = require('path');
+// const caminhoArquivo = path.resolve(__dirname, '..', 'config.json')
+// criarArquivoJson(caminhoArquivo)
 
 
 module.exports={
